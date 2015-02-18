@@ -35,13 +35,15 @@ public class FileTransferListener {
 						File outbox = new File(OUTBOX);
 						String[] files = outbox.list();
 		
-						for(String file : files)
+						for(String file : files) {
+						
 							if(!file.startsWith(".")) {
 							
 								File img = new File(OUTBOX+"/"+file);
 								if(img.isFile() && img.length() != 0)
 									stackOfFiles.push(img);
 							}
+						}
 							
 						while(stackOfFiles.size() > 0) {
 						
