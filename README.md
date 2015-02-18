@@ -31,10 +31,10 @@ To run the app:
     
   1. Turn the server on.  
         
-        java com.adi.server.ProjectServer <Port number to bind the server socket>  
+        java com.adi.server.ProjectServer <Port number to bind the server socket> <relative path of the properties file> 
      
   2. On the client side, turn the FileTransferListener on.  
       
-        java com.adi.FileTransferListener <IP of the server> <Port of the server>  
+        java com.adi.FileTransferListener <IP of the server> <Port of the server> <relative path of the directory containing the images clicked by camera> 
           
   3. And we are done.  
