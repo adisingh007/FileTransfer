@@ -17,14 +17,6 @@ public class Photo implements Serializable {
 	
 	
 	
-	public Photo(String fileName) throws IOException {
-	
-		File file = new File(fileName);
-		new Photo(file);
-	}
-	
-	
-	
 	public Photo(File file) throws IOException {
 	
 		fileName = file.getName();

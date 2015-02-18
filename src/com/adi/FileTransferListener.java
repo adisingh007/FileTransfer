@@ -6,22 +6,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Stack;
 
-import com.adi.transfer.HostDetails;
 import com.adi.client.ProjectClient;
 
 
 
 public class FileTransferListener {
 
-	private static final String OUTBOX = "outbox";
-
-
-
-	public static void main(String[] args) throws IOException {
+	public static void start(ProjectClient client, String outbox) throws IOException {
 	
-		HostDetails hostDetails = new HostDetails(args[0], Integer.parseInt(args[1]));
-		ProjectClient client = new ProjectClient(hostDetails);
-		
 		while(true) {
 		
 			Thread thread = new Thread() {
@@ -32,14 +24,14 @@ public class FileTransferListener {
 					try {
 				
 						Stack<File> stackOfFiles = new Stack<>();
-						File outbox = new File(OUTBOX);
-						String[] files = outbox.list();
+						File dir = new File(outbox);
+						String[] files = dir.list();
 		
 						for(String file : files) {
 						
 							if(!file.startsWith(".")) {
 							
-								File img = new File(OUTBOX+"/"+file);
+								File img = new File(outbox+"/"+file);
 								if(img.isFile() && img.length() != 0)
 									stackOfFiles.push(img);
 							}

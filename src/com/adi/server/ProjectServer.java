@@ -6,24 +6,21 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.sql.SQLException;
 
 import com.adi.photo.Photo;
-
+import com.adi.database.DatabaseEngine;
 
 
 public class ProjectServer {
 
-	private static final String INBOX = "inbox";
-	
-	
-	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
 	
 		int port = Integer.parseInt(args[0]);
 		ServerSocket serverSocket = new ServerSocket(port);
-		
+		DatabaseEngine engine = new DatabaseEngine(new File(args[1]));
+		engine.connect();
 		
 		while(true) {
 		
@@ -40,15 +37,8 @@ public class ProjectServer {
 						oistream.close();
 						socket.close();
 						
-						String outFileName = String.format("%s/%s", INBOX, photo.getName());
-						File file = new File(outFileName);
-						FileOutputStream fostream = new FileOutputStream(file);
-						byte[] pic = photo.getBytes();
-						
-						fostream.write(pic);
-						fostream.flush();
-						fostream.close();
-					} catch(IOException | ClassNotFoundException exception) {
+						engine.feed(photo.getName(), photo.getBytes());
+					} catch(IOException | ClassNotFoundException | SQLException exception) {
 					
 						exception.printStackTrace();
 					}
@@ -58,6 +48,11 @@ public class ProjectServer {
 			thread.start();
 			while(thread.isAlive())
 				/* Keep running this dead loop. */;
+				
+			if(port == port + 1)
+				break;	
 		} // End of while loop.
+		
+		engine.close();
 	} // End of main()
 }
