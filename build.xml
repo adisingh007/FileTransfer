@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="File Transfer" default="compile">
+	<target name="compile">
+		<javac srcdir="src" destdir="bin" source="1.8" target="1.8" includeantruntime="false">
+			<include name="**" />
+		</javac>
+	</target>
+	
+	<target name="server" depends="compile">
+		<java classname="com.adi.server.ProjectServer">
+			<classpath>
+				<pathelement location="bin" />
+			</classpath>
+			
+			<arg value="8000" />
+			<arg value="properties/database.properties" />
+		</java>
+	</target>
+	
+	<target name="client" depends="compile">
+		<java classname="DemoTransfer">
+			<classpath>
+				<pathelement location="bin" />
+			</classpath>
+			
+			<arg value="localhost" />
+			<arg value="8000" />
+			<arg value="output" />
+		</java>
+	</target>
+</project>
