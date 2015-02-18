@@ -37,6 +37,4 @@ To run the app:
       
         java com.adi.FileTransferListener <IP of the server> <Port of the server>  
           
-  3. And we are done.
-    
-                
+  3. And we are done.  
