@@ -28,13 +28,45 @@ File required on the `server` side:
   4. com/adi/server/ProjectServer$1.class  
     
 To run the app:  
+===============  
     
   1. Turn the server on.  
         
         java com.adi.server.ProjectServer <Port number to bind the server socket> <relative path of the properties file> 
      
-  2. On the client side, turn the FileTransferListener on.  
+     Make sure to turn on the database server too and configure your database details in the properties/database.properties file.  
+  
+  2. On the client side, turn the DemoTransfer on.  
       
-        java com.adi.FileTransferListener <IP of the server> <Port of the server> <relative path of the directory containing the images clicked by camera> 
+        java DemoTransfer <IP of the server> <Port of the server> <relative path of the directory containing the images clicked by camera> 
           
-  3. And we are done.  
+  3. And we are done.
+
+Using the API!  
+==============
+
+  1. Create an object of `com.adi.transfer.HostDetails` with Server IP address and Port number to connect the socket to.  
+     Example:  
+          
+         com.adi.transfer.HostDetails host = new com.adi.transfer.HostDetails("64.78.223.98", 80);
+	
+     This will save the details of the server to be connected to.
+  
+  2. Create an object of `com.adi.client.ProjectClient` with the object of `com.adi.transfer.HostDetails` as a parameter.  
+     Example:  
+  
+         com.adi.client.ProjectClient client = new com.adi.client.ProjectClient(host);  
+  
+     This will connect the Client socket to IP address `64.78.223.98` on port `80`. See `step 1` for clarification.  
+  
+  3. Call the `static` method `start()` from the `com.adi.FileTransfer` class with `com.adi.client.ProjectClient` object and the absolute or relative path of the directory where your camera will 
+     store images.  
+     Example:  
+  
+         com.adi.FileTransferListener.start(client, "/Users/aditya/Desktop/Workspace/Java/FileTransfer/outbox/");  // Make sure the end the path of the directory with a '/'(forward slash).  
+  
+     This will start listening to the directory specified ("outbox" in this case) and will transfer any image that comes in the directory to the server specified in the `com.adi.transfer.HostDetails` object.
+  
+  4. Good Luck!  
+ 
+
