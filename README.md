@@ -68,5 +68,8 @@ and is placed in the `inbox` directory on the server.
   
      This will start listening to the directory specified ("outbox" in this case) and will transfer any image that comes in the directory to the server specified in the `com.adi.transfer.HostDetails` object.
   
-  4. Good Luck!  
+  4. See the `DemoTransfer.java` file for a demo on using the API. Where we have used `args` as command line arguments.  
+     These are the same args passed as mentioned in `running the app` section.  
+  
+  5. Good Luck!  
  
